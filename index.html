@@ -1000,33 +1000,33 @@
   }
 
   function showReveal() {
-    // Collect form data and send to Google Sheets
-    var inputs = document.querySelectorAll('input[type="text"], input[type="email"]');
-    var selects = document.querySelectorAll('select');
-    var range = document.querySelector('input[type="range"]');
-    var radios_sound = document.querySelector('input[name="sound"]:checked');
-    var radios_temp = document.querySelector('input[name="temp"]:checked');
-    var textarea = document.querySelector('textarea');
-    var formData = {
-      nom: inputs[0] ? inputs[0].value : '',
-      email: inputs[1] ? inputs[1].value : '',
-      piment: range ? range.value : '',
-      rougails: selects[0] ? selects[0].value : '',
-      son: radios_sound ? radios_sound.parentElement.textContent.trim() : '',
-      ingredient: selects[1] ? selects[1].value : '',
-      pourquoi: textarea ? textarea.value : '',
-      temperature: radios_temp ? radios_temp.parentElement.textContent.trim() : '',
-      disponibilite: selects[2] ? selects[2].value : ''
-    };
-    fetch('https://script.google.com/macros/s/AKfycbwX_Pueqf4iCWpQbYXddoxazFevQ6Crm4Pc9IxkGVzkXaw_Ei-6bv0NfbhWh1u4GOMSrg/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(formData)
-    }).catch(function(){});
-    showPage('page-reveal');
-    launchConfetti();
-  }
+          var inputs = document.querySelectorAll('input[type="text"], input[type="email"]');
+          var selects = document.querySelectorAll('select');
+          var range = document.querySelector('input[type="range"]');
+          var radios_sound = document.querySelector('input[name="sound"]:checked');
+          var radios_temp = document.querySelector('input[name="temp"]:checked');
+          var textarea = document.querySelector('textarea');
+          var formData = {
+            nom: inputs[0] ? inputs[0].value : '',
+            email: inputs[1] ? inputs[1].value : '',
+            piment: range ? range.value : '',
+            rougails: selects[0] ? selects[0].value : '',
+            son: radios_sound ? radios_sound.parentElement.textContent.trim() : '',
+            ingredient: selects[1] ? selects[1].value : '',
+            pourquoi: textarea ? textarea.value : '',
+            temperature: radios_temp ? radios_temp.parentElement.textContent.trim() : '',
+            disponibilite: selects[2] ? selects[2].value : ''
+          };
+          var params = new URLSearchParams();
+          Object.keys(formData).forEach(function(k){ params.append(k, formData[k]); });
+          fetch('https://script.google.com/macros/s/AKfycbwX_Pueqf4iCWpQbYXddoxazFevQ6Crm4Pc9IxkGVzkXaw_Ei-6bv0NfbhWh1u4GOMSrg/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            body: params
+          }).catch(function(){});
+          showPage('page-reveal');
+          launchConfetti();
+      }
 
   // Piment level emoji
   function updatePimentLevel(val) {
